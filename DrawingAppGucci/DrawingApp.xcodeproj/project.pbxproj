@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0000216B28AA0E6000CC21ED /* UIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000216A28AA0E6000CC21ED /* UIFactory.swift */; };
+		0005759B28B494A500600402 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0005759A28B494A500600402 /* CanvasView.swift */; };
 		001B7D6228A0D82100BEF034 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001B7D6128A0D82100BEF034 /* Text.swift */; };
 		001B7D6428A0E4C700BEF034 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001B7D6328A0E4C700BEF034 /* TextView.swift */; };
 		003E1D96288B1A0E0077783E /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003E1D95288B1A0E0077783E /* Size.swift */; };
@@ -68,6 +69,7 @@
 
 /* Begin PBXFileReference section */
 		0000216A28AA0E6000CC21ED /* UIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFactory.swift; sourceTree = "<group>"; };
+		0005759A28B494A500600402 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		001B7D6128A0D82100BEF034 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		001B7D6328A0E4C700BEF034 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		003E1D95288B1A0E0077783E /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				00A9D5D8287BFC68002A6049 /* SquareView.swift */,
 				00CC7C80288E47E3009E0D0A /* PhotoView.swift */,
 				001B7D6328A0E4C700BEF034 /* TextView.swift */,
+				0005759A28B494A500600402 /* CanvasView.swift */,
 				00DA93B928A50393000DBC48 /* LayerTableViewCell.swift */,
 				0000216A28AA0E6000CC21ED /* UIFactory.swift */,
 				0057428728743F9500080F14 /* Main.storyboard */,
@@ -428,6 +431,7 @@
 				003E1D9A288B1A170077783E /* Color.swift in Sources */,
 				004C649028AB770A00C63D86 /* ViewControllExtension.swift in Sources */,
 				004C649228AB774900C63D86 /* TableCellDragAndDrop.swift in Sources */,
+				0005759B28B494A500600402 /* CanvasView.swift in Sources */,
 				00DE6F0C28784B7600738FC8 /* Extension +.swift in Sources */,
 				001B7D6228A0D82100BEF034 /* Text.swift in Sources */,
 				00CC7C7F288E3F8E009E0D0A /* Photo.swift in Sources */,

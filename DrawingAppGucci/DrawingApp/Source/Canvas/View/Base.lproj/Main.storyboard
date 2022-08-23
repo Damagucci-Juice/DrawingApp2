@@ -396,8 +396,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTK-gC-RH4">
+                            <view clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTK-gC-RH4" customClass="CanvasView" customModule="DrawingApp" customModuleProvider="target">
                                 <rect key="frame" x="241" y="24" width="698" height="621"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="KF2-Ix-xug" appends="YES" id="sOX-ge-rYj"/>

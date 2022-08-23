@@ -29,7 +29,7 @@ final class CanvasViewController: UIViewController {
     @IBOutlet weak var widthLabel: UILabel!
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var backgroundView: CanvasView!
     var shapeFrameViews: [UIView] = []
     
     var plane: Plane?
