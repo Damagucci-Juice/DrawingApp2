@@ -59,8 +59,16 @@ final class ShapeFactory {
             let textSize = Size(width: Double(string.count) * 13, height: 35)
             shape.size = textSize
             return Text(shape: shape, string: string)
+        case .drawing:
+            guard let linesData = urlData,
+                  let lines = try? JSONDecoder().decode([[Point]].self, from: linesData)
+            else { assert(false) }
+            let pointAndSize = makeOriginPointAndSize(from: lines)
+            shape.point = pointAndSize.point
+            shape.size = pointAndSize.size
+            
+            return Line(shape: shape, lines: lines)
         }
-        
     }
     
      private func generateUUID() -> String {
@@ -125,4 +133,34 @@ final class ShapeFactory {
         result.removeLast()
         return result
     }
+    
+        private func makeOriginPointAndSize(from lines: [[Point]]) -> (point: Point, size: Size) {
+            //x, y 중에 가장 0에 가까운 것을 찾아서 Point 로 만들기
+            var minX: Double = Double(Int.max)
+            var minY: Double = Double(Int.max)
+            var maxX: Double = 0.0
+            var maxY: Double = 0.0
+            lines.forEach { line in
+                //TODO: - switch (point.x, point.y) {} 로 할 필요 없는지 확인
+                line.forEach { point in
+                    if point.x < minX {
+                        minX = point.x
+                    }
+                    if point.y < minY {
+                        minY = point.y
+                    }
+                    if point.x > maxX {
+                        maxX = point.x
+                    }
+                    if point.y > maxY {
+                        maxY = point.y
+                    }
+                }
+                
+            }
+            return (
+                Point.init(x: minX, y: minY),
+                Size(width: maxX - minX, height: maxY - minY)
+            )
+        }
 }

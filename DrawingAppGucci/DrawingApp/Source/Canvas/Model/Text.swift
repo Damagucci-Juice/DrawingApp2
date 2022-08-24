@@ -17,7 +17,8 @@ final class Text: Shape {
     }
     
     required init?(coder: NSCoder) {
-        string = coder.decodeObject(forKey: "string") as! String
+        guard let string = coder.decodeObject(forKey: "string") as? String else { assert(false) }
+        self.string = string
         super.init(coder: coder)
     }
     

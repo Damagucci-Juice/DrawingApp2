@@ -40,7 +40,7 @@ final class Plane: NSObject, Planable {
     }
     
     //MARK: - 도형 추가
-    func makeShape(with blueprint: ShapeBlueprint, by urlData: Data? = nil) { 
+    func makeShape(with blueprint: ShapeBlueprint, by urlData: Data? = nil) {
         let shape = factory.generateShape(with: blueprint, urlData: urlData)
         shapes.append(shape)
         

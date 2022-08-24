@@ -16,12 +16,12 @@ extension CanvasViewController {
         NotificationCenter.default.addObserver(
             forName: .property,
             object: nil,
-            queue: .main) { [unowned self] noti in
+            queue: .main) { [weak self] noti in
                 guard
-                    let drawbleView = beforeSelectedView as? Drawable,
-                    let currentView = beforeSelectedView,
+                    let drawbleView = self?.beforeSelectedView as? Drawable,
+                    let currentView = self?.beforeSelectedView,
                     let someProtperty = noti.userInfo?[NotificationKey.property] as? ShapeProperty,
-                    let plane = plane
+                    let plane = self?.plane
                 else { return }
                 let shape = plane[drawbleView.index]
                 switch someProtperty {
@@ -36,7 +36,7 @@ extension CanvasViewController {
                         width: shape.size.width,
                         height: shape.size.height)
                 }
-                updatePropertiesLabels(with: currentView)
+                self?.updatePropertiesLabels(with: currentView)
             }
         
         //MARK: - [GET] 도형 투명도 변경
@@ -44,16 +44,16 @@ extension CanvasViewController {
             .addObserver(
                 forName: .color,
                 object: nil,
-                queue: .main) { [unowned self] noti in
+                queue: .main) { [weak self] noti in
                     guard
                         let alpha = noti.userInfo?[NotificationKey.alpha] as? Alpha,
                         let color = noti.userInfo?[NotificationKey.color] as? Color,
                         let blueprint = noti.userInfo?[NotificationKey.blueprint] as? ShapeBlueprint,
-                        let drawableView = beforeSelectedView as? Drawable
+                        let drawableView = self?.beforeSelectedView as? Drawable
                     else { return }
                     
                     drawableView.updateAlphaOrColor(alpha: alpha, color: color)
-                    self.informSelectedViewToStatus(color: color, alpha: alpha, type: blueprint)
+                    self?.informSelectedViewToStatus(color: color, alpha: alpha, type: blueprint)
                 }
 
         //MARK: - [GET] 도형 추가
@@ -61,14 +61,30 @@ extension CanvasViewController {
             .addObserver(
                 forName: .add,
                 object: nil,
-                queue: .main) { [unowned self] noti in
+                queue: .main) { [weak self] noti in
                     guard let shape = noti.userInfo?[NotificationKey.shapeObject] as? Shape,
                           let index = noti.userInfo?[NotificationKey.index] as? Int
                     else {
                         return }
                     
-                    self.addView(from: shape, index: index)
-                    self.tableView.reloadData()
+                    self?.addView(from: shape, index: index)
+                    self?.tableView.reloadData()
+                }
+        //MARK: - [GET] 라인 Model 추가
+        NotificationCenter.default
+            .addObserver(
+                forName: .add,
+                object: self.backgroundView,
+                queue: .main) { [weak self] noti in
+                    guard let lines = noti.userInfo?[NotificationKey.shapeObject] as? [[CGPoint]]
+                    else { return }
+
+                    let points: [[Point]] = lines.map { line in
+                        let tempLine: [Point] = line.map { Point(x: $0.x, y: $0.y) }
+                        return tempLine
+                    }
+                    let linesData = try? JSONEncoder().encode(points)
+                    self?.plane?.makeShape(with: .drawing, by: linesData)
                 }
         
     }
@@ -83,7 +99,7 @@ extension CanvasViewController {
         NotificationCenter.default
             .post(
                 name: .boundary,
-                object: nil,
+                object: self,
                 userInfo: [NotificationKey.range: bound]
             )
     }

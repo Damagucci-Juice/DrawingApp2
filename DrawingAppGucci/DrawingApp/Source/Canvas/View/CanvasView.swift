@@ -9,7 +9,7 @@ import UIKit
 
 final class CanvasView: UIView {
 
-    var lines = [[CGPoint]]()
+    private var lines = [[CGPoint]]()
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
@@ -24,12 +24,22 @@ final class CanvasView: UIView {
                 }
             }
         }
-        
+          
+//        for (i, p) in points.enumerated() {
+//            if i == 0 {
+//                context.move(to: p)
+//            } else {
+//                context.addLine(to: p)
+//            }
+//        }
+          
         context.setStrokeColor(UIColor.red.cgColor)
-        context.setLineWidth(10)
+        context.setLineWidth(5)
         context.setLineCap(.round)
-        
         context.strokePath()
+//        context.
+        
+        setNeedsDisplay()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -38,7 +48,7 @@ final class CanvasView: UIView {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
-        
+        //MARK: - touches in CanvasView, not nil
         guard let point = touches.first?.location(in: self),
               var line = lines.popLast()
         else { return }
@@ -46,5 +56,25 @@ final class CanvasView: UIView {
         line.append(point)
         lines.append(line)
         setNeedsDisplay()
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.lines = []
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        postNotification(with: lines)
+        self.lines = []
+    }
+}
+
+extension CanvasView {
+    private func postNotification(with lines: [[CGPoint]]) {
+        NotificationCenter.default
+            .post(
+                name: .add,
+                object: self,
+                userInfo: [NotificationKey.shapeObject: lines]
+            )
     }
 }

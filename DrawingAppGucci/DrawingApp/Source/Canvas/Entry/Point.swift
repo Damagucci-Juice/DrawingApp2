@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Point {
+struct Point: Codable {
+    
     var x: Double
     var y: Double
 }

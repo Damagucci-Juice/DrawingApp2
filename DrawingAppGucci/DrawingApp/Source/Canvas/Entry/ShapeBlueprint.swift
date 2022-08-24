@@ -12,4 +12,5 @@ enum ShapeBlueprint: String {
     case rectangle
     case photo
     case text
+    case drawing
 }

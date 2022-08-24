@@ -60,6 +60,8 @@ final class LayerTableViewCell: UITableViewCell {
             shapeImageView?.image = UIImage(systemName: "photo")
         case .text:
             shapeImageView?.image = UIImage(systemName: "t.square")
+        case .drawing:
+            shapeImageView?.image = UIImage(systemName: "scribble")
         }
     }
 }
