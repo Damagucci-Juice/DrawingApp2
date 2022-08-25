@@ -10,6 +10,7 @@ import UIKit
 final class CanvasView: UIView {
 
     private var lines = [[CGPoint]]()
+    private var path: CGPath?
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
@@ -25,19 +26,13 @@ final class CanvasView: UIView {
             }
         }
           
-//        for (i, p) in points.enumerated() {
-//            if i == 0 {
-//                context.move(to: p)
-//            } else {
-//                context.addLine(to: p)
-//            }
-//        }
-          
         context.setStrokeColor(UIColor.red.cgColor)
         context.setLineWidth(5)
         context.setLineCap(.round)
-        context.strokePath()
-//        context.
+//        context.strokePath()
+        
+        UIGraphicsPushContext(context)
+        context.saveGState()
         
         setNeedsDisplay()
     }

@@ -23,44 +23,43 @@ final class LineView: UIImageView, Drawable {
             return tempLine
         })
         super.init(frame: CGRect(x: line.point.x, y: line.point.y, width: line.size.width, height: line.size.height))
-        super.backgroundColor = .green
+        super.backgroundColor = .systemBackground
         super.layer.opacity = 0.5
-        dump(line.bound)
+        super.layer.borderColor = UIColor.brown.cgColor
+        super.layer.borderWidth = 3
+        self.draw(self.frame)
     }
     
     required init?(coder: NSCoder) {
         fatalError("This class shoud be made by init(), Not init?(coder:)")
     }
     
-//    override func draw(_ rect: CGRect) {
-//        super.draw(rect)
-//        guard let context = UIGraphicsGetCurrentContext() else { return }
-//        
-//        lines.forEach { line in
-//            for (i, p) in line.enumerated() {
-//                if i == 0 {
-//                    context.move(to: p)
-//                } else {
-//                    context.addLine(to: p)
-//                }
-//            }
-//        }
-//          
-////        for (i, p) in points.enumerated() {
-////            if i == 0 {
-////                context.move(to: p)
-////            } else {
-////                context.addLine(to: p)
-////            }
-////        }
-//          
-//        context.setStrokeColor(UIColor.red.cgColor)
-//        context.setLineWidth(5)
-//        context.setLineCap(.round)
-//        context.strokePath()
-//        
-//        setNeedsDisplay()
-//    }
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        lines.forEach { line in
+            for (i, p) in line.enumerated() {
+                if i == 0 {
+                    context.move(to: p)
+                } else {
+                    context.addLine(to: p)
+                }
+            }
+        }
+        
+        context.setStrokeColor(UIColor.red.cgColor)
+        context.setLineWidth(5)
+        context.setLineCap(.round)
+        
+//        print(context.isPathEmpty)
+//        print(context.path)
+        context.strokePath()
+        context.drawPath(using: .stroke)
+//        UIGraphicsPopContext()
+        setNeedsDisplay()
+
+    }
     
     func updateAlphaOrColor(alpha: Alpha, color: Color?) {
         assert(false)
