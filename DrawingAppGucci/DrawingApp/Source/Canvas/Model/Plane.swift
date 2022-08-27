@@ -95,6 +95,7 @@ final class Plane: NSObject, Planable {
             alpha = text.alpha
         case let drawing as Line:
             drawing.setRandomColor()
+            color = drawing.color
             blueprint = .drawing
             alpha = .ten
         default:

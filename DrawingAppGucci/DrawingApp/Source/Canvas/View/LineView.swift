@@ -12,8 +12,9 @@ final class LineView: UIView, Drawable {
     
     var index: Int
     let lines: [[CGPoint]]
-    var path: CGPath?
     let line: Line
+    var shapeLayer: CAShapeLayer?
+    
     init(line: Line, index: Int) {
         self.index = index
         self.lines = line.lines.map({ line in
@@ -52,20 +53,18 @@ final class LineView: UIView, Drawable {
         }
 
         addGraphicSubLayer(aPath.cgPath)
-        self.path = aPath.cgPath
-        
         setNeedsDisplay()
     }
     
     func updateAlphaOrColor(alpha: Alpha, color: Color?) {
-        guard let color = color else { return }
-
-        self.layer.sublayers?.forEach({ layer in
-            if case let bezierLayer as CAShapeLayer = layer {
-                bezierLayer.strokeColor = CGColor(red: color.$r, green: color.$g, blue: color.$b, alpha: 1)
-                return 
-            }
-        })
+        guard let color = color,
+              let layer = shapeLayer
+        else { return }
+            
+        self.layer.sublayers?.removeAll()
+        layer.strokeColor = CGColor(red: color.$r, green: color.$g, blue: color.$b, alpha: 1)
+        self.layer.addSublayer(layer)
+        setNeedsDisplay()
     }
     
     fileprivate func getOrigin(lines: [[CGPoint]]) -> Point {
@@ -93,5 +92,6 @@ final class LineView: UIView, Drawable {
         bezierLayer.fillColor = .none
         
         self.layer.addSublayer(bezierLayer)
+        self.shapeLayer = bezierLayer
     }
 }

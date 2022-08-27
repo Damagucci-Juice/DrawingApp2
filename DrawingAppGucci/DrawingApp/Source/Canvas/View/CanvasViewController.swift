@@ -175,17 +175,6 @@ final class CanvasViewController: UIViewController {
         beforeSelectedView = shapeFrameViews[index]
         
         //MARK: - 상태창에 알림
-//        if let rectangle = selectedShape as? Rectangle {
-//            self.informSelectedViewToStatus(
-//                color: rectangle.color,
-//                alpha: selectedShape.alpha,
-//                type: .rectangle)
-//        } else {
-//            self.informSelectedViewToStatus(
-//                color: Color(),
-//                alpha: selectedShape.alpha,
-//                type: .photo)
-//        }
         var color: Color = Color()
         var alpha: Alpha = .ten
         var type: ShapeBlueprint = .rectangle
