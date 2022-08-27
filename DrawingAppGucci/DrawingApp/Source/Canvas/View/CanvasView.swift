@@ -10,18 +10,12 @@ import UIKit
 final class CanvasView: UIView {
 
     private var lines = [[CGPoint]]()
-    private var path: CGPath?
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-//        guard let context = UIGraphicsGetCurrentContext() else { return }
-//
-//        UIGraphicsPushContext(context)
-
-    }
+    private var isCanDrawing: Bool = false
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        lines.append([CGPoint]())
+        if isCanDrawing {
+            lines.append([CGPoint]())
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -40,8 +34,13 @@ final class CanvasView: UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        postNotification(with: lines)
+        guard let firstLine = lines.first else { return }
+        
+        if isCanDrawing && !firstLine.isEmpty {
+            postNotification(with: lines)
+        }
         self.lines = []
+//        self.isCanDrawing.toggle()
     }
 }
 
@@ -53,5 +52,9 @@ extension CanvasView {
                 object: self,
                 userInfo: [NotificationKey.shapeObject: lines]
             )
+    }
+    
+    func enableDrawing() {
+        self.isCanDrawing.toggle()
     }
 }

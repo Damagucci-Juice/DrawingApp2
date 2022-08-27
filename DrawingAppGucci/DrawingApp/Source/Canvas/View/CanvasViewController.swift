@@ -72,6 +72,9 @@ final class CanvasViewController: UIViewController {
         plane.makeShape(with: .text)
     }
     
+    @IBAction func touchedDrawingButton(_ sender: UIButton) {
+        backgroundView.enableDrawing()
+    }
     @IBAction func touchedXUp(_ sender: UIButton) {
         guard let currentView = beforeSelectedView as? Drawable,
               let plane = plane

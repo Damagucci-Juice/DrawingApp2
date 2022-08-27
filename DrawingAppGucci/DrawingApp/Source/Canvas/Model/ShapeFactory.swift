@@ -66,7 +66,7 @@ final class ShapeFactory {
             let pointAndSize = makeOriginPointAndSize(from: lines)
             shape.point = pointAndSize.point
             shape.size = pointAndSize.size
-            
+//            shape.changeAlpha(value: 1)
             return Line(shape: shape, lines: lines)
         }
     }
