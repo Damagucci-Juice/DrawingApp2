@@ -7,11 +7,12 @@
 
 import UIKit
 
-final class LineView: UIImageView, Drawable {
+final class LineView: UIView, Drawable {
     
     
     var index: Int
     let lines: [[CGPoint]]
+    var path: CGPath?
     
     init(line: Line, index: Int) {
         self.index = index
@@ -24,9 +25,6 @@ final class LineView: UIImageView, Drawable {
         })
         super.init(frame: CGRect(x: line.point.x, y: line.point.y, width: line.size.width, height: line.size.height))
         super.backgroundColor = .systemBackground
-        super.layer.opacity = 0.5
-        super.layer.borderColor = UIColor.brown.cgColor
-        super.layer.borderWidth = 3
         self.draw(self.frame)
     }
     
@@ -36,32 +34,57 @@ final class LineView: UIImageView, Drawable {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        guard let context = UIGraphicsGetCurrentContext() else { return }
-        
+
+        let aPath = UIBezierPath()
+        let origin = getOrigin(lines: self.lines)
+
         lines.forEach { line in
             for (i, p) in line.enumerated() {
+                let calculatedPoint = CGPoint(x: p.x - origin.x, y: p.y - origin.y)
                 if i == 0 {
-                    context.move(to: p)
+                    aPath.move(to: calculatedPoint)
                 } else {
-                    context.addLine(to: p)
+                    aPath.addLine(to: calculatedPoint)
                 }
             }
         }
-        
-        context.setStrokeColor(UIColor.red.cgColor)
-        context.setLineWidth(5)
-        context.setLineCap(.round)
-        
-//        print(context.isPathEmpty)
-//        print(context.path)
-        context.strokePath()
-        context.drawPath(using: .stroke)
-//        UIGraphicsPopContext()
-        setNeedsDisplay()
 
+        addGraphicSubLayer(aPath.cgPath, UIColor.red.cgColor)
+        self.path = aPath.cgPath
+        
+        setNeedsDisplay()
     }
     
     func updateAlphaOrColor(alpha: Alpha, color: Color?) {
         assert(false)
+    }
+    
+    fileprivate func getOrigin(lines: [[CGPoint]]) -> Point {
+        var minX = Double(Int.max)
+        var minY = Double(Int.max)
+        lines.forEach { line in
+            for p in line {
+                if p.x < minX {
+                    minX = p.x
+                }
+                if p.y < minY {
+                    minY = p.y
+                }
+            }
+        }
+        return Point(x: minX, y: minY)
+    }
+    
+    fileprivate func addGraphicSubLayer(_ path: CGPath, _ color: CGColor) {
+        let bezierLayer = CAShapeLayer()
+        bezierLayer.path = path
+        bezierLayer.lineWidth = 5
+        bezierLayer.strokeColor = UIColor.red.cgColor
+        bezierLayer.fillRule = .nonZero
+        bezierLayer.fillColor = .none
+        bezierLayer.borderWidth = 3
+        bezierLayer.borderColor = UIColor.gray.cgColor
+        
+        self.layer.addSublayer(bezierLayer)
     }
 }

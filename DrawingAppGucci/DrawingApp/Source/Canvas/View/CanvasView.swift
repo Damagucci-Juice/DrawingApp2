@@ -14,27 +14,10 @@ final class CanvasView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        guard let context = UIGraphicsGetCurrentContext() else { return }
-        
-        lines.forEach { line in
-            for (i, p) in line.enumerated() {
-                if i == 0 {
-                    context.move(to: p)
-                } else {
-                    context.addLine(to: p)
-                }
-            }
-        }
-          
-        context.setStrokeColor(UIColor.red.cgColor)
-        context.setLineWidth(5)
-        context.setLineCap(.round)
-//        context.strokePath()
-        
-        UIGraphicsPushContext(context)
-        context.saveGState()
-        
-        setNeedsDisplay()
+//        guard let context = UIGraphicsGetCurrentContext() else { return }
+//
+//        UIGraphicsPushContext(context)
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -50,7 +33,6 @@ final class CanvasView: UIView {
         
         line.append(point)
         lines.append(line)
-        setNeedsDisplay()
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
