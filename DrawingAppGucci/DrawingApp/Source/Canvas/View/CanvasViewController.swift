@@ -29,7 +29,7 @@ final class CanvasViewController: UIViewController {
     @IBOutlet weak var widthLabel: UILabel!
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var backgroundView: CanvasView!
     var shapeFrameViews: [UIView] = []
     
     var plane: Plane?
@@ -72,6 +72,9 @@ final class CanvasViewController: UIViewController {
         plane.makeShape(with: .text)
     }
     
+    @IBAction func touchedDrawingButton(_ sender: UIButton) {
+        backgroundView.enableDrawing()
+    }
     @IBAction func touchedXUp(_ sender: UIButton) {
         guard let currentView = beforeSelectedView as? Drawable,
               let plane = plane
@@ -147,10 +150,10 @@ final class CanvasViewController: UIViewController {
     
     //MARK: - 슬라이더에 점을 움직이면 실행 되는 액션
     @IBAction func movedDot(_ sender: UISlider) {
-        guard let currentView = beforeSelectedView as? Drawable,
+        guard let currentSquare = beforeSelectedView as? Drawable,
               let plane = plane
         else { return }
-        plane.changeColorAndAlpha(at: currentView.index, by: Double(sender.value))
+        plane.changeColorAndAlpha(at: currentSquare.index, by: Double(sender.value))
     }
     
     //MARK: - 메인 화면에 한 점을 터치하면 실행되는 액션
@@ -172,17 +175,31 @@ final class CanvasViewController: UIViewController {
         beforeSelectedView = shapeFrameViews[index]
         
         //MARK: - 상태창에 알림
-        if let rectangle = selectedShape as? Rectangle {
-            self.informSelectedViewToStatus(
-                color: rectangle.color,
-                alpha: selectedShape.alpha,
-                type: .rectangle)
-        } else {
-            self.informSelectedViewToStatus(
-                color: Color(),
-                alpha: selectedShape.alpha,
-                type: .photo)
+        var color: Color = Color()
+        var alpha: Alpha = .ten
+        var type: ShapeBlueprint = .rectangle
+        switch selectedShape {
+        case let rectangle as Rectangle:
+            color = rectangle.color
+            alpha = rectangle.alpha
+            type = .rectangle
+        case let photo as Photo:
+            color = Color()
+            alpha = photo.alpha
+            type = .photo
+        case let text as Text:
+            color = Color()
+            alpha = text.alpha
+            type = .text
+        case let line as Line:
+            color = line.color
+            alpha = line.alpha
+            type = .drawing
+        default:
+            assert(false, "형변환에 실패했습니다")
         }
+        
+        informSelectedViewToStatus(color: color, alpha: alpha, type: type)
     }
     
     //MARK: - 사각형 버튼 누르면 실행 되는 액션

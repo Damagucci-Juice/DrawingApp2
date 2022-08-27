@@ -28,6 +28,8 @@ extension CanvasViewController: UITableViewDataSource {
                 shapes = plane.shapes.filter { $0 is Photo }
             case .text:
                 shapes = plane.shapes.filter { $0 is Text }
+            case .drawing:
+                shapes = plane.shapes.filter { $0 is Line }
             }
             counter = shapes.count
             for shape in shapes {
@@ -47,6 +49,8 @@ extension CanvasViewController: UITableViewDataSource {
             cell.setUp(with: .photo, at: indexPath.row, printNumber: getPrintNumber(target: .photo))
         case _ as Text:
             cell.setUp(with: .text, at: indexPath.row, printNumber: getPrintNumber(target: .text))
+        case _ as Line:
+            cell.setUp(with: .drawing, at: indexPath.row, printNumber: getPrintNumber(target: .drawing))
         default:
             break
         }

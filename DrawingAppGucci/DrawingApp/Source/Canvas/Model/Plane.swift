@@ -40,7 +40,7 @@ final class Plane: NSObject, Planable {
     }
     
     //MARK: - 도형 추가
-    func makeShape(with blueprint: ShapeBlueprint, by urlData: Data? = nil) { 
+    func makeShape(with blueprint: ShapeBlueprint, by urlData: Data? = nil) {
         let shape = factory.generateShape(with: blueprint, urlData: urlData)
         shapes.append(shape)
         
@@ -93,6 +93,11 @@ final class Plane: NSObject, Planable {
             text.changeAlpha(value: alphaValue ?? 0)
             blueprint = .text
             alpha = text.alpha
+        case let drawing as Line:
+            drawing.setRandomColor()
+            color = drawing.color
+            blueprint = .drawing
+            alpha = .ten
         default:
             assert(false, "failure at type casting")
         }

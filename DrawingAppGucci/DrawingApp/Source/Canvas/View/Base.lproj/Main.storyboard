@@ -320,7 +320,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="SfJ-tN-geC">
-                                <rect key="frame" x="385.5" y="650" width="409" height="100"/>
+                                <rect key="frame" x="334" y="650" width="512" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46x-0U-M0D">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -378,6 +378,20 @@
                                             <action selector="touchedTextButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xzH-mo-U1i"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRT-Kc-Rsv">
+                                        <rect key="frame" x="412" y="0.0" width="100" height="100"/>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="SVU-h5-1og"/>
+                                            <constraint firstAttribute="height" constant="100" id="ct3-lL-BHf"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="드로잉"/>
+                                        <connections>
+                                            <action selector="touchedDrawingButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CHV-xS-akK"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gwH-jC-mel" userLabel="Layer Table View">
@@ -396,8 +410,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTK-gC-RH4">
+                            <view clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTK-gC-RH4" customClass="CanvasView" customModule="DrawingApp" customModuleProvider="target">
                                 <rect key="frame" x="241" y="24" width="698" height="621"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="KF2-Ix-xug" appends="YES" id="sOX-ge-rYj"/>

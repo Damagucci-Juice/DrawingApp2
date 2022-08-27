@@ -17,6 +17,8 @@ final class UIFactory {
             return PhotoView(photo: photo, index: index)
         case let text as Text:
             return TextView(text: text, index: index)
+        case let line as Line:
+            return LineView(line: line, index: index)
         default:
             assert(false, "problem occured at \(#file)")
         }
