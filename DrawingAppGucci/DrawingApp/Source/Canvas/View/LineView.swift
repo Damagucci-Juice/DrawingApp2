@@ -37,10 +37,10 @@ final class LineView: UIView, Drawable {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-
+        
         let aPath = UIBezierPath()
         let origin = getOrigin(lines: self.lines)
-
+        
         lines.forEach { line in
             for (i, p) in line.enumerated() {
                 let calculatedPoint = CGPoint(x: p.x - origin.x, y: p.y - origin.y)
@@ -51,7 +51,7 @@ final class LineView: UIView, Drawable {
                 }
             }
         }
-
+        
         addGraphicSubLayer(aPath.cgPath)
         setNeedsDisplay()
     }
@@ -60,11 +60,14 @@ final class LineView: UIView, Drawable {
         guard let color = color,
               let layer = shapeLayer
         else { return }
-            
+        
         self.layer.sublayers?.removeAll()
         layer.strokeColor = CGColor(red: color.$r, green: color.$g, blue: color.$b, alpha: 1)
-        self.layer.addSublayer(layer)
-        setNeedsDisplay()
+        DispatchQueue.main.async { [weak self] in
+            self?.layer.addSublayer(layer)
+            self?.setNeedsDisplay()
+        }
+        
     }
     
     fileprivate func getOrigin(lines: [[CGPoint]]) -> Point {
@@ -90,6 +93,7 @@ final class LineView: UIView, Drawable {
         bezierLayer.strokeColor = CGColor(red: line.color.$r, green: line.color.$g, blue: line.color.$b, alpha: 1)
         bezierLayer.fillRule = .nonZero
         bezierLayer.fillColor = .none
+        bezierLayer.lineCap = .butt
         
         self.layer.addSublayer(bezierLayer)
         self.shapeLayer = bezierLayer

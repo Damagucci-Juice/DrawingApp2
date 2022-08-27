@@ -18,6 +18,13 @@ extension CanvasViewController {
         colorButton.setTitle(buttonTitleString, for: .normal)
         adjustSliderAndStepper(by: alpha)
         statusView.isHidden = false
+        if blueprint == .drawing {
+            self.stepper.isEnabled = false
+            self.slider.isEnabled = false
+        } else {
+            self.stepper.isEnabled = true
+            self.slider.isEnabled = true
+        }
     }
     
     func updatePropertiesLabels(with view: UIView) {

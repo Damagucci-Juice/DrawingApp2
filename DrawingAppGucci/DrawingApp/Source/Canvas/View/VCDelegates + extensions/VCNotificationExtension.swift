@@ -30,7 +30,7 @@ extension CanvasViewController {
                 case .y:
                     currentView.layer.frame.origin.y = shape.point.y
                 case .width, .height:
-                    currentView.bounds = CGRect(
+                    currentView.frame = CGRect(
                         x: shape.point.x,
                         y: shape.point.y,
                         width: shape.size.width,
