@@ -13,7 +13,7 @@ final class LineView: UIView, Drawable {
     var index: Int
     let lines: [[CGPoint]]
     var path: CGPath?
-    
+    let line: Line
     init(line: Line, index: Int) {
         self.index = index
         self.lines = line.lines.map({ line in
@@ -23,8 +23,10 @@ final class LineView: UIView, Drawable {
             }
             return tempLine
         })
+        self.line = line
         super.init(frame: CGRect(x: line.point.x, y: line.point.y, width: line.size.width, height: line.size.height))
-        super.backgroundColor = .systemBackground
+        self.layer.borderColor = tintColor.cgColor
+        self.sizeToFit()
         self.draw(self.frame)
     }
     
@@ -49,14 +51,21 @@ final class LineView: UIView, Drawable {
             }
         }
 
-        addGraphicSubLayer(aPath.cgPath, UIColor.red.cgColor)
+        addGraphicSubLayer(aPath.cgPath)
         self.path = aPath.cgPath
         
         setNeedsDisplay()
     }
     
     func updateAlphaOrColor(alpha: Alpha, color: Color?) {
-        assert(false)
+        guard let color = color else { return }
+
+        self.layer.sublayers?.forEach({ layer in
+            if case let bezierLayer as CAShapeLayer = layer {
+                bezierLayer.strokeColor = CGColor(red: color.$r, green: color.$g, blue: color.$b, alpha: 1)
+                return 
+            }
+        })
     }
     
     fileprivate func getOrigin(lines: [[CGPoint]]) -> Point {
@@ -75,15 +84,13 @@ final class LineView: UIView, Drawable {
         return Point(x: minX, y: minY)
     }
     
-    fileprivate func addGraphicSubLayer(_ path: CGPath, _ color: CGColor) {
+    fileprivate func addGraphicSubLayer(_ path: CGPath) {
         let bezierLayer = CAShapeLayer()
         bezierLayer.path = path
         bezierLayer.lineWidth = 5
-        bezierLayer.strokeColor = UIColor.red.cgColor
+        bezierLayer.strokeColor = CGColor(red: line.color.$r, green: line.color.$g, blue: line.color.$b, alpha: 1)
         bezierLayer.fillRule = .nonZero
         bezierLayer.fillColor = .none
-        bezierLayer.borderWidth = 3
-        bezierLayer.borderColor = UIColor.gray.cgColor
         
         self.layer.addSublayer(bezierLayer)
     }

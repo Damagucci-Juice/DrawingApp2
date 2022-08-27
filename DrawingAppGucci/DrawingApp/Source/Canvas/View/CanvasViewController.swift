@@ -175,17 +175,42 @@ final class CanvasViewController: UIViewController {
         beforeSelectedView = shapeFrameViews[index]
         
         //MARK: - 상태창에 알림
-        if let rectangle = selectedShape as? Rectangle {
-            self.informSelectedViewToStatus(
-                color: rectangle.color,
-                alpha: selectedShape.alpha,
-                type: .rectangle)
-        } else {
-            self.informSelectedViewToStatus(
-                color: Color(),
-                alpha: selectedShape.alpha,
-                type: .photo)
+//        if let rectangle = selectedShape as? Rectangle {
+//            self.informSelectedViewToStatus(
+//                color: rectangle.color,
+//                alpha: selectedShape.alpha,
+//                type: .rectangle)
+//        } else {
+//            self.informSelectedViewToStatus(
+//                color: Color(),
+//                alpha: selectedShape.alpha,
+//                type: .photo)
+//        }
+        var color: Color = Color()
+        var alpha: Alpha = .ten
+        var type: ShapeBlueprint = .rectangle
+        switch selectedShape {
+        case let rectangle as Rectangle:
+            color = rectangle.color
+            alpha = rectangle.alpha
+            type = .rectangle
+        case let photo as Photo:
+            color = Color()
+            alpha = photo.alpha
+            type = .photo
+        case let text as Text:
+            color = Color()
+            alpha = text.alpha
+            type = .text
+        case let line as Line:
+            color = line.color
+            alpha = line.alpha
+            type = .drawing
+        default:
+            assert(false, "형변환에 실패했습니다")
         }
+        
+        informSelectedViewToStatus(color: color, alpha: alpha, type: type)
     }
     
     //MARK: - 사각형 버튼 누르면 실행 되는 액션

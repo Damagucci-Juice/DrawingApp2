@@ -40,7 +40,6 @@ final class CanvasView: UIView {
             postNotification(with: lines)
         }
         self.lines = []
-//        self.isCanDrawing.toggle()
     }
 }
 

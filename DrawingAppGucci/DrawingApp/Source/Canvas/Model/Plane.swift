@@ -93,6 +93,10 @@ final class Plane: NSObject, Planable {
             text.changeAlpha(value: alphaValue ?? 0)
             blueprint = .text
             alpha = text.alpha
+        case let drawing as Line:
+            drawing.setRandomColor()
+            blueprint = .drawing
+            alpha = .ten
         default:
             assert(false, "failure at type casting")
         }

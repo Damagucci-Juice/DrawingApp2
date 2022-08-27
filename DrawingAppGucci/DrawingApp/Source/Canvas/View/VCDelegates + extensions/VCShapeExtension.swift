@@ -12,8 +12,9 @@ extension CanvasViewController {
     
     // MARK: - 상태창에 선택된 스퀘어 뷰를 알리기
     func informSelectedViewToStatus(color: Color, alpha: Alpha, type blueprint: ShapeBlueprint) {
-        let buttonTitleString = blueprint == .rectangle ? color.hexaColor : "비어있음"
-        colorButton.isEnabled = blueprint == .rectangle ? true : false
+        let hasColor: Bool = blueprint == .rectangle || blueprint == .drawing
+        let buttonTitleString = hasColor ? color.hexaColor : "비어있음"
+        colorButton.isEnabled = hasColor ? true : false
         colorButton.setTitle(buttonTitleString, for: .normal)
         adjustSliderAndStepper(by: alpha)
         statusView.isHidden = false

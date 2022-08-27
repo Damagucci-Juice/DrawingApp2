@@ -9,6 +9,7 @@ import Foundation
 
 final class Line: Shape {
     private(set) var lines: [[Point]]
+    private(set) var color: Color = Color(r: 0, g: 0, b: 0)
     
     init(shape: Shape, lines: [[Point]]) {
         self.lines = lines
@@ -24,5 +25,9 @@ final class Line: Shape {
     override func encode(with coder: NSCoder) {
         super.encode(with: coder)
         coder.encode(lines, forKey: "lines")
+    }
+    
+    func setRandomColor() {
+        self.color = Color()
     }
 }
