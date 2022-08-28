@@ -9,7 +9,6 @@ import UIKit
 
 final class LineView: UIView, Drawable {
     
-    
     var index: Int
     let lines: [[CGPoint]]
     let line: Line
@@ -37,7 +36,7 @@ final class LineView: UIView, Drawable {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
+
         let aPath = UIBezierPath()
         let origin = getOrigin(lines: self.lines)
         
