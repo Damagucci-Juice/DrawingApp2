@@ -76,15 +76,14 @@ extension CanvasViewController {
                 forName: .add,
                 object: self.backgroundView,
                 queue: .main) { [weak self] noti in
-                    guard let lines = noti.userInfo?[NotificationKey.shapeObject] as? [[CGPoint]]
+                    guard let line = noti.userInfo?[NotificationKey.shapeObject] as? [CGPoint]
                     else { return }
 
-                    let points: [[Point]] = lines.map { line in
-                        let tempLine: [Point] = line.map { Point(x: $0.x, y: $0.y) }
-                        return tempLine
+                    let points: [Point] = line.map { point in
+                        return Point(x: point.x, y: point.y)
                     }
-                    let linesData = try? JSONEncoder().encode(points)
-                    self?.plane?.makeShape(with: .drawing, by: linesData)
+                    let lineData = try? JSONEncoder().encode(points)
+                    self?.plane?.makeShape(with: .drawing, by: lineData)
                 }
         
     }

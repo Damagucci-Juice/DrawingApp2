@@ -73,11 +73,12 @@ final class CanvasView: UIView {
 
 extension CanvasView {
     private func postNotification(with lines: [[CGPoint]]) {
+        guard let line = lines.first else { return }
         NotificationCenter.default
             .post(
                 name: .add,
                 object: self,
-                userInfo: [NotificationKey.shapeObject: lines]
+                userInfo: [NotificationKey.shapeObject: line]
             )
     }
     
