@@ -1,5 +1,5 @@
 //
-//  TableCellDragAndDrop.swift
+//  CellDragAndDropDelegate.swift
 //  DrawingApp
 //
 //  Created by YEONGJIN JANG on 2022/08/16.
