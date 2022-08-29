@@ -34,8 +34,8 @@ final class ShapeFactory {
         guard let viewBound = viewBound else {
             assert(false, "viewBound에 값이 없습니다.")
         }
-
-
+        
+        
         let size = Size(width: ShapeSize.width,
                         height: ShapeSize.height)
         let point = Point(x: Double.random(in: viewBound.0),
@@ -45,7 +45,7 @@ final class ShapeFactory {
                           point: point,
                           alpha: Self.generateAlpha(),
                           bound: Bound(size: size, point: point))
-
+        
         switch with {
         case .rectangle:
             return Rectangle(shape: shape, color: Color())
@@ -60,18 +60,18 @@ final class ShapeFactory {
             shape.size = textSize
             return Text(shape: shape, string: string)
         case .drawing:
-            guard let linesData = urlData,
-                  let lines = try? JSONDecoder().decode([[Point]].self, from: linesData)
+            guard let lineData = urlData,
+                  let line = try? JSONDecoder().decode([Point].self, from: lineData)
             else { assert(false) }
-            let pointAndSize = makeOriginPointAndSize(from: lines)
+            let pointAndSize = makeOriginPointAndSize(from: line)
             shape.point = pointAndSize.point
             shape.size = pointAndSize.size
             shape.changeAlpha(value: 1)
-            return Line(shape: shape, lines: lines)
+            return Line(shape: shape, lineData: lineData)
         }
     }
     
-     private func generateUUID() -> String {
+    private func generateUUID() -> String {
         let id = UUID()             // xxxx-xxxx-xxxx-xxxx
             .uuidString
             .components(separatedBy: "-")
@@ -89,7 +89,7 @@ final class ShapeFactory {
             }
             resultId += String(word.element)
         }
-
+        
         return resultId             // xxx-xxx-xxx
     }
     
@@ -134,33 +134,31 @@ final class ShapeFactory {
         return result
     }
     
-        private func makeOriginPointAndSize(from lines: [[Point]]) -> (point: Point, size: Size) {
-            //x, y 중에 가장 0에 가까운 것을 찾아서 Point 로 만들기
-            var minX: Double = Double(Int.max)
-            var minY: Double = Double(Int.max)
-            var maxX: Double = 0.0
-            var maxY: Double = 0.0
-            lines.forEach { line in
-                //TODO: - switch (point.x, point.y) {} 로 할 필요 없는지 확인
-                line.forEach { point in
-                    if point.x < minX {
-                        minX = point.x
-                    }
-                    if point.y < minY {
-                        minY = point.y
-                    }
-                    if point.x > maxX {
-                        maxX = point.x
-                    }
-                    if point.y > maxY {
-                        maxY = point.y
-                    }
-                }
-                
+    private func makeOriginPointAndSize(from line: [Point]) -> (point: Point, size: Size) {
+
+        var minX: Double = Double(Int.max)
+        var minY: Double = Double(Int.max)
+        var maxX: Double = 0.0
+        var maxY: Double = 0.0
+        
+        line.forEach { point in
+            if point.x < minX {
+                minX = point.x
             }
-            return (
-                Point.init(x: minX, y: minY),
-                Size(width: maxX - minX, height: maxY - minY)
-            )
+            if point.y < minY {
+                minY = point.y
+            }
+            if point.x > maxX {
+                maxX = point.x
+            }
+            if point.y > maxY {
+                maxY = point.y
+            }
         }
+        
+        return (
+            Point.init(x: minX, y: minY),
+            Size(width: maxX - minX, height: maxY - minY)
+        )
+    }
 }

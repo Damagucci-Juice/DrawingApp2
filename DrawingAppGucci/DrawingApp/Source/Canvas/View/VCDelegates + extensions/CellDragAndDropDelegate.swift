@@ -1,5 +1,5 @@
 //
-//  TableCellDragAndDrop.swift
+//  CellDragAndDropDelegate.swift
 //  DrawingApp
 //
 //  Created by YEONGJIN JANG on 2022/08/16.
@@ -8,7 +8,7 @@
 import UIKit
 
 //MARK: - TableView Cell Drag and Drop
-extension CanvasViewController: UITableViewDragDelegate, UITableViewDropDelegate {
+final class CellDragAndDropDelegate: NSObject, UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         return [UIDragItem(itemProvider: NSItemProvider())]
     }

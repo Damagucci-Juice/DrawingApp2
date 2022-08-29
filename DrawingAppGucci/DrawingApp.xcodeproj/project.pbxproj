@@ -18,10 +18,10 @@
 		004C648628AB71A900C63D86 /* VCShapeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C648528AB71A900C63D86 /* VCShapeExtension.swift */; };
 		004C648828AB757E00C63D86 /* PHPickerDeleagte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C648728AB757E00C63D86 /* PHPickerDeleagte.swift */; };
 		004C648A28AB760A00C63D86 /* VCNotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C648928AB760A00C63D86 /* VCNotificationExtension.swift */; };
-		004C648C28AB763200C63D86 /* TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C648B28AB763200C63D86 /* TableViewDelegate.swift */; };
+		004C648C28AB763200C63D86 /* CanvasTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C648B28AB763200C63D86 /* CanvasTableViewDelegate.swift */; };
 		004C648E28AB76CF00C63D86 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C648D28AB76CF00C63D86 /* TableViewDataSource.swift */; };
 		004C649028AB770A00C63D86 /* ViewControllExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C648F28AB770A00C63D86 /* ViewControllExtension.swift */; };
-		004C649228AB774900C63D86 /* TableCellDragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C649128AB774900C63D86 /* TableCellDragAndDrop.swift */; };
+		004C649228AB774900C63D86 /* CellDragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C649128AB774900C63D86 /* CellDragAndDropDelegate.swift */; };
 		0057428228743F9500080F14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0057428128743F9500080F14 /* AppDelegate.swift */; };
 		0057428428743F9500080F14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0057428328743F9500080F14 /* SceneDelegate.swift */; };
 		0057428628743F9500080F14 /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0057428528743F9500080F14 /* CanvasViewController.swift */; };
@@ -81,10 +81,10 @@
 		004C648528AB71A900C63D86 /* VCShapeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCShapeExtension.swift; sourceTree = "<group>"; };
 		004C648728AB757E00C63D86 /* PHPickerDeleagte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerDeleagte.swift; sourceTree = "<group>"; };
 		004C648928AB760A00C63D86 /* VCNotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCNotificationExtension.swift; sourceTree = "<group>"; };
-		004C648B28AB763200C63D86 /* TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
+		004C648B28AB763200C63D86 /* CanvasTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTableViewDelegate.swift; sourceTree = "<group>"; };
 		004C648D28AB76CF00C63D86 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		004C648F28AB770A00C63D86 /* ViewControllExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllExtension.swift; sourceTree = "<group>"; };
-		004C649128AB774900C63D86 /* TableCellDragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellDragAndDrop.swift; sourceTree = "<group>"; };
+		004C649128AB774900C63D86 /* CellDragAndDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDragAndDropDelegate.swift; sourceTree = "<group>"; };
 		0057427E28743F9500080F14 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0057428128743F9500080F14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0057428328743F9500080F14 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -226,8 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				00EC55E528936E0300254487 /* PanGestureRecognizer.swift */,
-				004C649128AB774900C63D86 /* TableCellDragAndDrop.swift */,
-				004C648B28AB763200C63D86 /* TableViewDelegate.swift */,
+				004C649128AB774900C63D86 /* CellDragAndDropDelegate.swift */,
+				004C648B28AB763200C63D86 /* CanvasTableViewDelegate.swift */,
 				004C648F28AB770A00C63D86 /* ViewControllExtension.swift */,
 				004C648D28AB76CF00C63D86 /* TableViewDataSource.swift */,
 				004C648728AB757E00C63D86 /* PHPickerDeleagte.swift */,
@@ -421,7 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				004C648C28AB763200C63D86 /* TableViewDelegate.swift in Sources */,
+				004C648C28AB763200C63D86 /* CanvasTableViewDelegate.swift in Sources */,
 				0057428628743F9500080F14 /* CanvasViewController.swift in Sources */,
 				001B7D6428A0E4C700BEF034 /* TextView.swift in Sources */,
 				005742B428744AA400080F14 /* Alpha.swift in Sources */,
@@ -437,7 +437,7 @@
 				0057428428743F9500080F14 /* SceneDelegate.swift in Sources */,
 				003E1D9A288B1A170077783E /* Color.swift in Sources */,
 				004C649028AB770A00C63D86 /* ViewControllExtension.swift in Sources */,
-				004C649228AB774900C63D86 /* TableCellDragAndDrop.swift in Sources */,
+				004C649228AB774900C63D86 /* CellDragAndDropDelegate.swift in Sources */,
 				0005759B28B494A500600402 /* CanvasView.swift in Sources */,
 				00DE6F0C28784B7600738FC8 /* Extension +.swift in Sources */,
 				001B7D6228A0D82100BEF034 /* Text.swift in Sources */,

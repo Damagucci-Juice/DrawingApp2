@@ -7,15 +7,18 @@
 
 import UIKit
 
-extension CanvasViewController: UITableViewDataSource {
+final class CanvasTableViewDataSource: NSObject, UITableViewDataSource {
+    
+    var vc: CanvasViewController?
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return plane?.count ?? 0
+        return vc?.plane?.count ?? 0
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LayerTableViewCell", for: indexPath) as? LayerTableViewCell,
-              let plane = plane
+              let plane = vc?.plane
         else { return UITableViewCell() }
         
         func getPrintNumber(target: ShapeBlueprint) -> Int {
@@ -60,16 +63,15 @@ extension CanvasViewController: UITableViewDataSource {
     
     //MARK: - drag and drop 후에 애니메이션과 함께 실행될 메서드
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        guard sourceIndexPath.row != destinationIndexPath.row else {
-            return
-        }
+        guard sourceIndexPath.row != destinationIndexPath.row,
+              let vc = vc else { return }
         let spaceOfRow = sourceIndexPath.row - destinationIndexPath.row
 
         for step in 0..<abs(spaceOfRow) {
             if spaceOfRow > 0 {
-                self.moveViewAndModel(to: .backward, index: sourceIndexPath.row - step)
+                vc.moveViewAndModel(to: .backward, index: sourceIndexPath.row - step)
             } else {
-                self.moveViewAndModel(to: .forward, index: sourceIndexPath.row + step)
+                vc.moveViewAndModel(to: .forward, index: sourceIndexPath.row + step)
             }
         }
         tableView.reloadData()

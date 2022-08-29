@@ -30,6 +30,11 @@ final class CanvasViewController: UIViewController {
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backgroundView: CanvasView!
+    let panGestureRecognizer = PanGestureRecognizer()
+    let cellDragAndDropDelegate = CellDragAndDropDelegate()
+    let tableViewDelegate = CanvasTableViewDelegate()
+    let tableViewDataSource = CanvasTableViewDataSource()
+    let imagePickerDelegate = CanvasImageDelegate()
     var shapeFrameViews: [UIView] = []
     
     var plane: Plane?
@@ -221,12 +226,16 @@ final class CanvasViewController: UIViewController {
         stepper.stepValue = 0.1
         rectangleButton.isOpaque = false
         statusView.isHidden = true
-        phPickerViewController.delegate = self
-        tableView.dataSource = self
-        tableView.delegate = self
+        phPickerViewController.delegate = self.imagePickerDelegate
+        tableView.dataSource = self.tableViewDataSource
+        tableView.delegate = self.tableViewDelegate
         tableView.dragInteractionEnabled = true
-        tableView.dragDelegate = self
-        tableView.dropDelegate = self
+        tableView.dragDelegate = self.cellDragAndDropDelegate
+        tableView.dropDelegate = self.cellDragAndDropDelegate
+        panGestureRecognizer.delegate = self
+        tableViewDelegate.delegate = self
+        tableViewDataSource.vc = self
+        imagePickerDelegate.vc = self
         
         [pointXView, pointYView, sizeWView, sizeHView].forEach {
             guard let view = $0 else { return }
@@ -255,6 +264,9 @@ final class CanvasViewController: UIViewController {
         super.viewDidAppear(animated)
         guard let shapes = plane?.shapes else {
             return
+        }
+        backgroundView.subviews.forEach { view in
+            view.removeFromSuperview()
         }
         shapes.enumerated().forEach { shape in
             addView(from: shape.element, index: shape.offset)
