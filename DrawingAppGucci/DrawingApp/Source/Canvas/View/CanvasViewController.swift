@@ -33,6 +33,7 @@ final class CanvasViewController: UIViewController {
     let panGestureRecognizer = PanGestureRecognizer()
     let cellDragAndDropDelegate = CellDragAndDropDelegate()
     let tableViewDelegate = CanvasTableViewDelegate()
+    let tableViewDataSource = CanvasTableViewDataSource()
     var shapeFrameViews: [UIView] = []
     
     var plane: Plane?
@@ -225,13 +226,14 @@ final class CanvasViewController: UIViewController {
         rectangleButton.isOpaque = false
         statusView.isHidden = true
         phPickerViewController.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = self.tableViewDataSource
         tableView.delegate = self.tableViewDelegate
         tableView.dragInteractionEnabled = true
         tableView.dragDelegate = self.cellDragAndDropDelegate
         tableView.dropDelegate = self.cellDragAndDropDelegate
         panGestureRecognizer.delegate = self
         tableViewDelegate.delegate = self
+        tableViewDataSource.vc = self
         
         [pointXView, pointYView, sizeWView, sizeHView].forEach {
             guard let view = $0 else { return }

@@ -1,5 +1,5 @@
 //
-//  TableViewDelegate.swift
+//  CanvasTableViewDelegate.swift
 //  DrawingApp
 //
 //  Created by YEONGJIN JANG on 2022/08/16.
@@ -33,28 +33,28 @@ final class CanvasTableViewDelegate: NSObject, UITableViewDelegate {
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let vc = delegate else { return UIContextMenuConfiguration() }
         
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [unowned self] suggestedActions in
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
             let backMostAction =
             UIAction(title: NSLocalizedString("맨 뒤로 보내기", comment: ""),
-                     image: UIImage(systemName: "arrow.up.to.line")) { [unowned self] action in
+                     image: UIImage(systemName: "arrow.up.to.line")) { action in
                 vc.moveViewAndModel(to: .backmost, index: indexPath.row)
                 tableView.reloadData()
             }
             let backwardAction =
             UIAction(title: NSLocalizedString("뒤로 보내기", comment: ""),
-                     image: UIImage(systemName: "arrow.up.square")) { [unowned self] action in
+                     image: UIImage(systemName: "arrow.up.square")) { action in
                 vc.moveViewAndModel(to: .backward, index: indexPath.row)
                 tableView.reloadData()
             }
             let forwardAction =
             UIAction(title: NSLocalizedString("앞으로 보내기", comment: ""),
-                     image: UIImage(systemName: "arrow.down.square")) { [unowned self] action in
+                     image: UIImage(systemName: "arrow.down.square")) { action in
                 vc.moveViewAndModel(to: .forward, index: indexPath.row)
                 tableView.reloadData()
             }
             let foreMostAction =
             UIAction(title: NSLocalizedString("맨 앞으로 보내기", comment: ""),
-                     image: UIImage(systemName: "arrow.down.to.line")) { [unowned self] action in
+                     image: UIImage(systemName: "arrow.down.to.line")) { action in
                 vc.moveViewAndModel(to: .foremost, index: indexPath.row)
                 tableView.reloadData()
             }
