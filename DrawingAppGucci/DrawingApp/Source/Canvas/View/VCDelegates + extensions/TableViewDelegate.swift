@@ -16,6 +16,8 @@ extension CanvasViewController: UITableViewDelegate {
         //MARK: - 상태창에 알림
         if let rectangle = shape as? Rectangle {
             self.informSelectedViewToStatus(color: rectangle.color, alpha: shape.alpha, type: .rectangle)
+        } else if case let line as Line = shape {
+            self.informSelectedViewToStatus(color: line.color, alpha: shape.alpha, type: .drawing)
         } else {
             self.informSelectedViewToStatus(color: Color(r: 0, g: 0, b: 0), alpha: shape.alpha, type: .photo)
         }
