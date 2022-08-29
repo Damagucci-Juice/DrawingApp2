@@ -256,6 +256,9 @@ final class CanvasViewController: UIViewController {
         guard let shapes = plane?.shapes else {
             return
         }
+        backgroundView.subviews.forEach { view in
+            view.removeFromSuperview()
+        }
         shapes.enumerated().forEach { shape in
             addView(from: shape.element, index: shape.offset)
         }
