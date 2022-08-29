@@ -36,7 +36,7 @@ extension CanvasViewController {
     
     func addView(from shape: Shape, index: Int) {
         let view = UIFactory.makeView(with: shape, at: index)
-        createPanGestureRecognizer(targetView: view)
+        panGestureRecognizer.createPanGestureRecognizer(targetView: view)
         shapeFrameViews.append(view)
         self.backgroundView.addSubview(view)
         view.becomeFirstResponder()
